@@ -7,6 +7,8 @@ body {
   min-width: 960px;
   width: 100%;
   text-align: justify;
+  position: relative;
+  min-height: 100%;
 }
 
 h1 {
@@ -26,6 +28,7 @@ h1 {
 h2 {
   color: #00cc00;
   font-family: 'Josefin Slab', serif;
+  font-weight: 600;
   font-size: 1.8em;
   line-height: 50px;
 }
@@ -34,6 +37,7 @@ h3 {
   color: #00cc00;
   font-size: 1.2em;
   font-family: 'Josefin Slab', serif;
+  font-weight: 600;
   line-height: 60px;
 }
 
@@ -48,6 +52,17 @@ a {
   text-decoration: none;
 }
 
+ol {
+  list-style-type: decimal;
+  margin: 2em;
+  font-family: 'Arvo', serif;
+  /*list-style-position: inside;*/
+}
+
+li {
+  padding-bottom: 2px;
+}
+
 /* Header */
 
 #header {
@@ -56,9 +71,6 @@ a {
   font-size: 30px;
   text-align: center;
   padding: 60px;
-}
-#header:hover {
-  background-color: white;
 }
 
 /* Navigation */
@@ -77,7 +89,7 @@ a {
 }
 #navmenu li a {
   color: white;
-  margin: 0px 10px 10px;
+  margin: 10px 10px 10px;
   transition-property: color;
   transition-duration: 0.7s;
 }
@@ -92,6 +104,9 @@ a {
   margin: auto;
   width: 60%;
   padding-top: 80px;
+  padding-bottom: 180px;
+  height: 100%;
+  position:relative;
 }
 
 .post {
@@ -116,6 +131,12 @@ a {
   line-height: 60px;
 }
 
+/* About Me Page */
+
+/*#profile {
+  padding-bottom: 10px;
+}*/
+
 /* Images */
 
 #profile_pic {
@@ -126,4 +147,17 @@ a {
   border-style: solid;
   border-width: 2px;
   color: #32cdcd;
+}
+
+/* Footer */
+footer {
+  background-color: #32cdcd;
+  position: relative;
+  bottom: 0px;
+  margin: 0 0 0 0;
+  width: 100%;
+  padding: 2px;
+  padding-left: 10px;
+  /*font-family: 'Lobster', cursive;
+  font-size: 30px;*/
 }
