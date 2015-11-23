@@ -1,3 +1,122 @@
-#kitten {
-  height: 100px;
+body {
+  background-image: url(/images/frenchstucco.png);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.2em;
+  margin: 0px auto;
+  min-width: 960px;
+  width: 100%;
+  text-align: justify;
+}
+
+h1 {
+  font-family: 'Lobster', cursive;
+  color: #32cdcd;
+  font-size: 2.2em;
+  float: center;
+  line-height: 75px;
+  margin: auto;
+  padding: 0;
+  border-style: solid;
+  border-width: 4px;
+  width: 24%;
+  background-color: white;
+}
+
+h2 {
+  color: #00cc00;
+  font-family: 'Josefin Slab', serif;
+  font-size: 1.8em;
+  line-height: 50px;
+}
+
+h3 {
+  color: #00cc00;
+  font-size: 1.2em;
+  font-family: 'Josefin Slab', serif;
+  line-height: 60px;
+}
+
+p {
+  margin: 0px auto;
+  font-family: 'Arvo', serif;
+}
+
+a {
+  color: #00cc00;
+  text-decoration: none;
+}
+
+/* Header */
+
+#header {
+  background-image: url(/images/cropped_mountains.png);
+  background-size: 600px 300px;
+  font-size: 30px;
+  text-align: center;
+  padding: 60px;
+}
+#header:hover {
+  background-color: white;
+}
+
+/* Navigation */
+
+#navmenu {
+  background-color: #32cdcd;
+  padding: 12px;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  font-size: 30px;
+}
+#navmenu li {
+  display: inline;
+  list-style-type: none;
+  text-align: center;
+}
+#navmenu li a {
+  color: white;
+  margin: 0px 10px 10px;
+  transition-property: color;
+  transition-duration: 0.7s;
+}
+
+#navmenu li a:hover {
+  color: #99ff99;
+}
+
+/* Container */
+
+.container {
+  margin: auto;
+  width: 60%;
+  padding-top: 80px;
+}
+
+.post {
+  padding-bottom: 160px;
+}
+
+.post-title{
+  float: left;
+}
+
+.post-date{
+  float: right;
+}
+
+.post-preview{
+  float: left;
+}
+
+/* Images */
+
+#profile_pic {
+  height: 300px;
+  opacity: 0.8;
+  float: right;
+  margin: 10px 10px 10px 10px;
+  border-style: solid;
+  border-width: 2px;
+  color: #32cdcd;
 }

@@ -3,13 +3,22 @@
 <head>
   <meta charset="utf-8">
   <title>{{ site.title }}</title>
-  <link href="/css/styles.css" rel="stylesheet">
+  <link href="/css/reset.css" rel="stylesheet" />
+  <link href="/css/styles.css" rel="stylesheet" />
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arvo|Sacramento|Josefin+Slab' rel='stylesheet' type='text/css'>
+  <!-- <link href='https://fonts.googleapis.com/css?family=Raleway|Poiret+One|Josefin+Slab' rel='stylesheet' type='text/css'> -->
 </head>
 <body>
-  <h3>{{ site.title }}</h3>
-  <div>
+  <div id="header">
+    <h1>{{ site.title }}</h1>
+  </div>
+  <!-- <h3>{{ site.title }}</h3> -->
+  <div id="navmenu">
     <ul>
-      <li><a href="/">Home</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/">Posts</a></li>
+      <li><a href="https://github.com/bethsecor">Github</a></li>
     </ul>
   </div>
   <div class="container">
