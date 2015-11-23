@@ -40,6 +40,7 @@ h3 {
 p {
   margin: 0px auto;
   font-family: 'Arvo', serif;
+  padding-bottom: 8px;
 }
 
 a {
@@ -97,16 +98,22 @@ a {
   padding-bottom: 160px;
 }
 
-.post-title{
+.post-title {
   float: left;
 }
 
-.post-date{
+.post-date {
   float: right;
 }
 
-.post-preview{
+.post-preview {
   float: left;
+}
+
+.date {
+  color: #32cdcd;
+  font-family: 'Arvo';
+  line-height: 60px;
 }
 
 /* Images */
