@@ -146,7 +146,7 @@ li {
 
 #profile_pic {
   height: 300px;
-  opacity: 0.8;
+  /*opacity: 0.8;*/
   float: right;
   margin: 10px 10px 10px 10px;
   border-style: solid;
@@ -156,7 +156,7 @@ li {
 
 #dog_sledding {
   height: 350px;
-  opacity: 0.8;
+  /*opacity: 0.8;*/
   float: left;
   margin: 10px 10px 10px 10px;
   border-style: solid;
