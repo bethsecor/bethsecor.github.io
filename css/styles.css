@@ -188,6 +188,47 @@ footer {
   font-size: 30px;*/
 }
 
+/** Smaller browser view **/
+@media screen and (max-width: 1330px){
+  /*body {
+    font-size: 1.4em;
+  }
+
+  h1 {
+    font-size: 3em;
+    width: 60%;
+  }
+
+  .container {
+    width: 80%
+  }
+
+  .post-title {
+    text-align: left;
+  }
+
+  .page-title {
+    text-align: left;
+  }
+
+  #navmenu {
+    font-size: 2.0em;
+    line-height: 36px;
+  }
+
+  #profile {
+    padding-bottom: 400px;
+  }*/
+
+  #dog_sledding {
+    height: 200px;
+  }
+
+  #mountains {
+    height: 200px
+  }
+}
+
 /** Tablet view **/
 @media screen and (max-width: 960px){
   body {
