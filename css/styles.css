@@ -165,6 +165,16 @@ li {
   color: #32cdcd;
 }
 
+#mountains {
+  height: 280px;
+  /*opacity: 0.8;*/
+  float: right;
+  margin: 10px 10px 10px 10px;
+  border-style: solid;
+  border-width: 2px;
+  color: #32cdcd;
+}
+
 /* Footer */
 footer {
   background-color: #32cdcd;
@@ -211,7 +221,11 @@ footer {
   }
 
   #dog_sledding {
-    height: 300px;
+    height: 200px;
+  }
+
+  #mountains {
+    height: 200px
   }
 }
 
