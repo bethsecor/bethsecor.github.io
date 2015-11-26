@@ -175,6 +175,16 @@ li {
   color: #32cdcd;
 }
 
+#GDI {
+  height: 280px;
+  /*opacity: 0.8;*/
+  float: left;
+  margin: 10px 10px 10px 10px;
+  border-style: solid;
+  border-width: 2px;
+  color: #32cdcd;
+}
+
 /* Footer */
 footer {
   background-color: #32cdcd;
