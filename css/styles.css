@@ -4,7 +4,7 @@ body {
   font-weight: 300;
   line-height: 1.2em;
   margin: 0px auto;
-  min-width: 960px;
+  /*min-width: 960px;*/
   width: 100%;
   text-align: justify;
   position: relative;
@@ -79,7 +79,7 @@ li {
   padding: 12px;
   text-align: center;
   font-family: 'Lobster', cursive;
-  font-size: 30px;
+  font-size: 34px;
 }
 #navmenu li {
   display: inline;
@@ -115,6 +115,7 @@ li {
 
 .post-title {
   float: left;
+  text-align: left;
 }
 
 .post-date {
@@ -175,4 +176,108 @@ footer {
   padding-left: 10px;
   /*font-family: 'Lobster', cursive;
   font-size: 30px;*/
+}
+
+/** Tablet view **/
+@media screen and (max-width: 960px){
+  body {
+    font-size: 1.4em;
+  }
+
+  h1 {
+    font-size: 3em;
+    width: 60%;
+  }
+
+  .container {
+    width: 80%
+  }
+
+  .post-title {
+    text-align: left;
+  }
+
+  .page-title {
+    text-align: left;
+  }
+
+  #navmenu {
+    font-size: 2.0em;
+    line-height: 36px;
+  }
+
+  #profile {
+    padding-bottom: 400px;
+  }
+
+  #dog_sledding {
+    height: 300px;
+  }
+}
+
+/** Mobile view **/
+@media screen and (max-width: 480px){
+  body {
+    font-size: 1.2em;
+  }
+
+  h1 {
+    font-size: 3em;
+    width: 80%;
+  }
+
+  .container {
+    width: 80%
+  }
+
+  .post-title {
+    text-align: left;
+  }
+
+  #navmenu {
+    font-size: 1.8em;
+  }
+
+  #profile {
+    padding-bottom: 400px;
+  }
+
+  #dog_sledding {
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 360px){
+  body {
+    font-size: 1.2em;
+  }
+
+  h1 {
+    font-size: 2.2em;
+    width: 80%;
+  }
+
+  .container {
+    width: 80%
+  }
+
+  .post-title {
+    text-align: left;
+  }
+
+  #navmenu {
+    font-size: 1.6em;
+  }
+
+  #profile {
+    padding-bottom: 400px;
+  }
+
+  #profile_pic {
+    height: 240px;
+  }
+
+  #dog_sledding {
+    height: 180px;
+  }
 }
