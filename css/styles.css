@@ -228,7 +228,8 @@ footer {
   }
 
   .container {
-    width: 80%
+    width: 80%;
+    /*padding-bottom: 400px;*/
   }
 
   .post-title {
@@ -244,16 +245,41 @@ footer {
     line-height: 36px;
   }
 
-  #profile {
-    padding-bottom: 400px;
-  }
-
   #dog_sledding {
     height: 200px;
   }
 
   #mountains {
     height: 200px
+  }
+}
+
+/** Mobile landscape view **/
+@media screen and (max-width: 736px){
+  body {
+    font-size: 1.2em;
+  }
+
+  h1 {
+    font-size: 3em;
+    width: 80%;
+  }
+
+  .container {
+    width: 80%;
+    padding-bottom: 300px;
+  }
+
+  .post-title {
+    text-align: left;
+  }
+
+  #navmenu {
+    font-size: 1.8em;
+  }
+
+  #dog_sledding {
+    height: 200px;
   }
 }
 
@@ -269,7 +295,8 @@ footer {
   }
 
   .container {
-    width: 80%
+    width: 80%;
+    /*padding-bottom: 100px;*/
   }
 
   .post-title {
@@ -278,10 +305,6 @@ footer {
 
   #navmenu {
     font-size: 1.8em;
-  }
-
-  #profile {
-    padding-bottom: 400px;
   }
 
   #dog_sledding {
@@ -300,7 +323,8 @@ footer {
   }
 
   .container {
-    width: 80%
+    width: 80%;
+    padding-bottom: 300px;
   }
 
   .post-title {
@@ -309,10 +333,6 @@ footer {
 
   #navmenu {
     font-size: 1.6em;
-  }
-
-  #profile {
-    padding-bottom: 400px;
   }
 
   #profile_pic {
