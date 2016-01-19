@@ -62,6 +62,10 @@ li {
   padding-bottom: 2px;
 }
 
+code {
+  font-family: Courier;
+}
+
 /*hr {
   border-color: #32cdcd;
   size: 0.1px;
@@ -183,8 +187,16 @@ li {
 
 #GDI {
   height: 280px;
-  /*opacity: 0.8;*/
   float: left;
+  margin: 10px 10px 10px 10px;
+  border-style: solid;
+  border-width: 2px;
+  color: #32cdcd;
+}
+
+#fight {
+  height: 280px;
+  float: right;
   margin: 10px 10px 10px 10px;
   border-style: solid;
   border-width: 2px;

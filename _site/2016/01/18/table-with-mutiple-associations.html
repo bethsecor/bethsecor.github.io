@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Beth Secor</title>
+  <link href="/css/reset.css" rel="stylesheet" />
+  <link href="/css/styles.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arvo|Sacramento|Josefin+Slab' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Slabo+13px|Josefin+Slab:600,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div id="header">
+    <h1>Beth Secor</h1>
+  </div>
+  <div id="navmenu">
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/">Posts</a></li>
+      <li><a href="https://github.com/bethsecor">Github</a></li>
+    </ul>
+  </div>
+  <div class="container">
+
+
+<h2 class="page-title">Creating a table with multiple associations</h2>
+<!-- <p>January 18, 2016</p> -->
+
+  <p class="date">January 18, 2016</p>
+
+
+<img id="fight" alt="Fight Schema" src="/images/Fight_schema.png">
+<p>
+  In true Turing fashion, we were assigned a mini-Rails project with three days to complete it. My pair <a href="https://github.com/afg419">Aaron Greenspan</a> and I decided we would create an app where users were Dojo leaders and they could log in to keep track of their combatants. Admins would be able to set up fights between combatants and users would be able to see a newsfeed of their victories and defeats. The dojo leader would initialize their combatants with certain skills, D&D style.
+</p>
+
+<p>
+  We needed a way to store the results of the fights, and after some deliberation, we chose to set up a fights table that would have multiple associations to the same model. That way, for each fight, we could store the ids of the winning combatant and the losing combatant in one row, instead of having two records for one fight. You can see the schema for this design above.
+</p>
+
+<p>
+  ActiveRecord has a way to implement this, and thanks to this
+  <a href=http://www.spacevatican.org/2008/5/6/creating-multiple-associations-with-the-same-table/"">excellent blog post</a> and this <a href="http://stackoverflow.com/questions/14867981/how-do-i-add-migration-with-multiple-references-to-the-same-model-in-one-table">StackOverflow post</a> we got it set up in our models like this:
+</p>
+
+<script src="https://gist.github.com/bethsecor/b7bea2d6fb2770c3388a.js"></script>
+
+<p>
+  Normally ActiveRecord assumes the <code>class_name</code>, but you can specify it and the <code>foreign_key</code>, and then name your association whatever you want. Here in the combatants model we’ve name the association <code>"winning_fights"</code>, specified the <code>class_name: "Fight"</code> and the <code>foreign_key: "winning_combatant_id"</code>. Notice in the <code>Fight</code> model that association names are the same as the foreign key that connects them.
+</p>
+
+<p>
+  For our newsfeed, this association set-up makes it very easy to list the victories and defeats of a particular dojo in our view:
+</p>
+
+<script src="https://gist.github.com/bethsecor/090aae5af812c2ea08b3.js"></script>
+
+<p>
+  You can see our whole project <a href="https://github.com/afg419/fantasy_fighters">here</a>. Remember we only had three days...
+</p>
+
+
+<!-- <div class="back-posts"> -->
+<a class="back-posts" href="/">...back to posts</a>
+<!-- <div/> -->
+
+      </div>
+    </body>
+    <footer>
+      <ul>
+        <li>
+          <a href="https://twitter.com/bethsecor"><img src="/images/Twitter-logo-watermark.png" height=40></a>
+        </li>
+      </ul>
+    </footer>
+</html>
+
