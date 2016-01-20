@@ -1,0 +1,61 @@
+---
+title: Applying statistics to benchmarking
+layout: post
+date: 2016-01-20
+---
+
+<p>
+  Benchmarking in ruby is very easy with the <code>Benchmark</code> module. The method <code>.bmbm</code> will run a rehearsal to force any initialization that needs to happen, and also forces it to run garbage collection. Then it runs the benchmark again.
+</p>
+
+<p>
+  This would be fine if you needed to run a quick benchmark, but can you say definitively that one method is faster than the other? Not quite. That's where statistics come in. If you want to know that on average, there is a statistically significant difference in runtime of one method over the other, you'll need to run this benchmark more than twice, and then use a statistical test to determine if that difference is real, or just by chance.
+</p>
+
+<p>
+  You'll need to take a large enough sample of runtimes, at least than 10 outer iterations will usually do the trick. Make sure you also have a pretty large number of inner iterations as well if the methods you are comparing are really fast for small jobs.
+</p>
+
+<p>
+  If you're wondering how you'll run a statistical test, you're in luck! Ruby has a cool gem called <a href="https://rubygems.org/gems/better-benchmark/versions/0.8.7"><code>better-benchmark</code></a> that pulls in <a href="https://www.r-project.org/"><code>R</code></a>, which is a statistical programming language. R is open source and very powerful, I prefer it over other statistical programming languages like SAS and Stata. You don't need to know how to program in R to use this gem, but you will need you install R first on your computer before installing the gem:
+</p>
+
+<ol>
+  <li>Download R: <a href="https://www.r-project.org/">https://www.r-project.org/</a></li>
+  <li>Set environment variable in your terminal: <br><code>export R_HOME="/Library/Frameworks/R.framework/Resources"</code></li>
+  <li>Then install the gem: <br><code>gem install rsruby -- --with-R-dir=$R_HOME</code></li>
+</ol>
+
+<p>
+  The statistical test that the <code>better-benchmark</code> gem uses is a <a href="https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test">Wilcoxon signed-rank test</a>, which is good because it does not assume that your data follows a particular distribution and is robust against outliers. It is similar to a t-test, but uses the ranks of your runtimes, rather than the actual runtimes.
+</p>
+
+<p>
+  The gem requires that to achieve statistical significance, the p-value must be below the significance level of 0.01. What does this mean? A small p-value (less than the significance level) would mean that the probability that we see a difference in runtimes between the two methods from our sample by mere chance is low. A large p-value would mean that the probability that we see a difference in the two methods from our sample by mere chance is high, meaning that there is a good chance these two methods are not different from each other.
+</p>
+
+<p>
+  Here is an example of how to run it:
+</p>
+
+<script src="https://gist.github.com/bethsecor/f792ce198e69d277781f.js"></script>
+
+<p>
+  In the above example, I'm specifying 30 outer iterations and 500,000 inner iterations to compare <code>shuffle</code> and <code>shuffle!</code>. It would probably be even better to do 1,000,000 inner iterations, but that would take a while.
+</p>
+
+<p>
+  Side note: I decided to look at the distributions of differences in runtimes by specifiying different outer iterations to see if that would smooth out the distribution, but that didn't seem to matter as much:
+</p>
+
+<img id="benchmark-dist" alt="benchmark distributions" src="/images/shuffle.vs.shufflebang(500000).png">
+
+<p>
+  If you are afraid of statistics and don't want to remember how to interpret the p-value, the cool thing about this gem is that it will tell you if you have statistical significance or not:
+</p>
+
+<script src="https://gist.github.com/bethsecor/d499b27f1b3636880bb2.js"></script>
+
+<p>
+  Bottom line: statistics is cool, and should always be used when benchmarking!
+</p>

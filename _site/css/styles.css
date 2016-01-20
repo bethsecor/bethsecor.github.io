@@ -44,7 +44,7 @@ h3 {
 p {
   margin: 0px auto;
   font-family: 'Arvo', serif;
-  padding-bottom: 8px;
+  padding-bottom: 15px;
 }
 
 a {
@@ -59,7 +59,8 @@ ol {
 }
 
 li {
-  padding-bottom: 2px;
+  padding-bottom: 3px;
+  text-align: left;
 }
 
 code {
@@ -198,6 +199,17 @@ code {
   height: 280px;
   float: right;
   margin: 10px 10px 10px 10px;
+  border-style: solid;
+  border-width: 2px;
+  color: #32cdcd;
+}
+
+#benchmark-dist {
+  height: 480px;
+  display: block;
+  margin: 10px 10px 10px 10px;
+  margin-left: auto;
+  margin-right: auto;
   border-style: solid;
   border-width: 2px;
   color: #32cdcd;
