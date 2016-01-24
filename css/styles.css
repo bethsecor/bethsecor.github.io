@@ -4,7 +4,6 @@ body {
   font-weight: 300;
   line-height: 1.2em;
   margin: 0px auto;
-  /*min-width: 960px;*/
   width: 100%;
   text-align: justify;
   position: relative;
@@ -67,12 +66,6 @@ code {
   font-family: Courier;
 }
 
-/*hr {
-  border-color: #32cdcd;
-  size: 0.1px;
-}*/
-/*#FE5A61;*/
-
 /* Header */
 
 #header {
@@ -84,7 +77,6 @@ code {
 }
 
 /* Navigation */
-
 #navmenu {
   background-color: #32cdcd;
   padding: 12px;
@@ -109,14 +101,12 @@ code {
 }
 
 /* Container */
-
 .container {
   margin: auto;
   width: 60%;
   padding-top: 80px;
-  padding-bottom: 80px;
+  padding-bottom: 800px;
   height: 100%;
-  position:relative;
   min-height: 100vh;
 }
 
@@ -149,40 +139,19 @@ code {
 }
 
 /* About Me Page */
-
 #profile {
   padding-bottom: 700px;
 }
 
 /* Images */
-
 #profile_pic {
   height: 300px;
-  /*opacity: 0.8;*/
-  float: right;
-  margin: 10px 10px 10px 10px;
+  margin-left:auto;
+  margin-right:auto;
+  display: block;
   border-style: solid;
   border-width: 2px;
-  color: #32cdcd;
-}
-
-#dog_sledding {
-  height: 350px;
-  /*opacity: 0.8;*/
-  float: left;
-  margin: 10px 10px 10px 10px;
-  border-style: solid;
-  border-width: 2px;
-  color: #32cdcd;
-}
-
-#mountains {
-  height: 280px;
-  /*opacity: 0.8;*/
-  float: right;
-  margin: 10px 10px 10px 10px;
-  border-style: solid;
-  border-width: 2px;
+  border-radius: 50%;
   color: #32cdcd;
 }
 
@@ -224,8 +193,6 @@ footer {
   width: 100%;
   padding: 2px;
   padding-left: 10px;
-  /*font-family: 'Lobster', cursive;
-  font-size: 30px;*/
 }
 
 /** Smaller browser view **/
@@ -253,7 +220,6 @@ footer {
 
   .container {
     width: 80%;
-    /*padding-bottom: 400px;*/
   }
 
   .post-title {
@@ -267,14 +233,6 @@ footer {
   #navmenu {
     font-size: 2.0em;
     line-height: 36px;
-  }
-
-  #dog_sledding {
-    height: 200px;
-  }
-
-  #mountains {
-    height: 200px
   }
 }
 
@@ -291,7 +249,7 @@ footer {
 
   .container {
     width: 80%;
-    padding-bottom: 300px;
+    /*padding-bottom: 300px;*/
   }
 
   .post-title {
@@ -300,10 +258,6 @@ footer {
 
   #navmenu {
     font-size: 1.8em;
-  }
-
-  #dog_sledding {
-    height: 200px;
   }
 }
 
@@ -331,14 +285,18 @@ footer {
     font-size: 1.8em;
   }
 
-  #dog_sledding {
+  #fight {
     height: 200px;
+  }
+  #benchmark-dist{
+    height: 300px;
   }
 }
 
 @media screen and (max-width: 360px){
   body {
     font-size: 1.2em;
+    min-height: 100vh;
   }
 
   h1 {
@@ -348,7 +306,9 @@ footer {
 
   .container {
     width: 80%;
+    min-height: 100vh;
     padding-bottom: 300px;
+
   }
 
   .post-title {
