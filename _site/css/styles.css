@@ -4,7 +4,8 @@ body {
   font-weight: 300;
   line-height: 1.2em;
   margin: 0px auto;
-  width: 100%;
+  /*width: 100%;*/
+  min-width: 1000px;
   text-align: justify;
   position: relative;
   min-height: 100%;
@@ -190,7 +191,6 @@ footer {
   position: relative;
   bottom: 0px;
   margin: 0 0 0 0;
-  width: 100%;
   padding: 2px;
   padding-left: 10px;
 }
