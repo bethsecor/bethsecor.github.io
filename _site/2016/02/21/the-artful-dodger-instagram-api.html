@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Beth Secor</title>
+  <link href="/css/reset.css" rel="stylesheet" />
+  <link href="/css/styles.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arvo|Sacramento|Josefin+Slab' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Slabo+13px|Josefin+Slab:600,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div id="header">
+    <h1>Beth Secor</h1>
+  </div>
+  <div id="navmenu">
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/">Posts</a></li>
+      <li><a href="https://github.com/bethsecor">Github</a></li>
+    </ul>
+  </div>
+  <div class="container">
+
+
+<h2 class="page-title">The Artful Dodger: Consuming the Instagram API
+</h2>
+<!-- <p>February 21, 2016</p> -->
+
+  <p class="date">February 21, 2016</p>
+
+
+<p>
+  This last week at Turing we were assigned <a href="https://github.com/turingschool/lesson_plans/blob/master/ruby_03-professional_rails_applications/apicurious.md">APIcurious</a>, which is a three day project to consume an API of our choice. Most people choose Twitter, Github, or Instagram. I love Instagram so I jumped in immediately (check out my artwork <a href="https://www.instagram.com/artofmoxie/">@artofmoxie</a>). Little did I know what a massive ordeal it would be to do anything interesting with the <a href="https://www.instagram.com/developer/">Instagram API</a> in just a few days.
+</p>
+
+
+<p>
+  When you get your developer key from Instagram, you are instantly <a href="https://www.instagram.com/developer/sandbox/">sandboxed</a>. This sandbox limits you to what you can see when you request followers, likes, and comments. I could only see my own comments, which is because I had no other developer accounts in my sandbox. If you're going to test out the Instagram API, it's crucial that you add other accounts to your sandbox and make sure to like, comment, and troll each other's accounts so that you will have data to work with. I ended up making a <a href="https://www.instagram.com/miss.capybara/">fake test account for a capybara</a> and adding the other students also working on the Instagram API, so it worked out in the end. You can only have 10 users in your sandbox, and can only see 20 recent media posts from each of those users. The upside of this is that you are unlikely to go over your API call rate limit when testing.
+</p>
+
+
+<p>
+  The other interesting wrench in working with the Instagram API are <a href="https://www.instagram.com/developer/authorization/">scopes</a>. When you are sandboxed, you at first only have access to the basic scope. This means you can only request data on your own account's photos. Not fun, right? Without the other scopes, you cannot request followers or public content, and you cannot post comments or likes. Don't be fooled by the documentation, Instagram makes it seem like you can't use these extended permissions without first submitting your app for review. Since we only had three days for the project, there was no way I would get out of the sandbox before it was due, and also, I was technically violating the terms of use because the goal of project was to clone Instagram, which is exactly what they don't want you to do. If you work at Instagram, calm yourself, I didn't push this project to production and have no intention of creating a competing product, this was purely for educational purposes.
+</p>
+
+<p>
+  We were two days into the project thinking that we were stuck. I then discovered an <a href="http://ka.lpe.sh/2015/12/24/this-request-requires-scope-public_content-but-this-access-token-is-not-authorized-with-this-scope/">article</a> about how you could ask your users to authorize extended permissions, even in the sandbox. I then discovered I could specify the scopes I needed in my OmniAuth configuration in Rails:
+</p>
+
+<script src="https://gist.github.com/bethsecor/20375432cbecb10de516.js"></script>
+
+<p>
+  This was the breakthrough I needed! Oddly enough, another student working on Instagram did not need to explicitly specify this in her configuration, she already had access to these scopes. We are still not sure exactly why.
+</p>
+
+<p>
+  Before I discovered the scopes issue, I decided to integrate another API so I wouldn't show up on Friday with a lame project. I used the <a href="https://developers.artsy.net/">Artsy API</a> which has a bunch of data on artists. I implemented a simple search feature on my app, but if I had more time, would have loved to integrate further with Instagram.
+</p>
+
+<p>
+  I wrote this blogpost as a warning to future Module 3 students, if you want to consume the Instagram API for APIcurious, follow the above steps. Feel free to invite me to your sandbox too, but slack me or <a href="https://twitter.com/bethsecor">tweet me</a> when you do, because despite what Instagram says, they do not email you when you've been invited to a sandbox.
+</p>
+
+
+<p>
+  See all the code for this app I made <a href="https://github.com/bethsecor/apicurious-artsy">here</a>.
+</p>
+
+
+<!-- <div class="back-posts"> -->
+<a class="back-posts" href="/">...back to posts</a>
+<!-- <div/> -->
+
+      </div>
+    </body>
+    <footer>
+      <ul>
+        <li>
+          <a href="https://twitter.com/bethsecor"><img src="/images/Twitter-logo-watermark.png" height=40></a>
+        </li>
+      </ul>
+    </footer>
+</html>
+
