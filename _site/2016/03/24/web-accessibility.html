@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Beth Secor</title>
+  <link href="/css/reset.css" rel="stylesheet" />
+  <link href="/css/styles.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arvo|Sacramento|Josefin+Slab' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Slabo+13px|Josefin+Slab:600,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div id="header">
+    <h1>Beth Secor</h1>
+  </div>
+  <div id="navmenu">
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/">Posts</a></li>
+      <li><a href="https://github.com/bethsecor">Github</a></li>
+    </ul>
+  </div>
+  <div class="container">
+
+
+<h2 class="page-title">Web Accessibility</h2>
+<!-- <p>March 24, 2016</p> -->
+
+  <p class="date">March 24, 2016</p>
+
+
+ <p>
+   Since Turing is such an intensive program, we often don't have the time to scrutinize every design choice for the applications we build. HTML and CSS are mostly self-taught, so it’s no surprise that most of us do not consider web accessibility when frantically trying to get a fully functional application running in three days.
+ </p>
+
+ <p>
+   Making sure your website is accessible means making it available and usable by everyone, including people of all different abilities. Would a person who can only use the keyboard be able to navigate your website? Is content available in different formats so that, for instance, a person who is hard of hearing can access a transcript or subtitles for audio content? There are many other considerations:
+ </p>
+
+<div id="web-accessibility-principles">
+  <ul>
+    <li>Text alternatives for non-text content such as images.</li>
+    <li>Captions and alternatives for all audio and video content.</li>
+    <li>Sufficient contrast between text and background.</li>
+    <li>Site can be navigated entirely with a keyboard.</li>
+    <li>Make sure there is enough time to read all content.</li>
+    <li>Do not use content that will trigger a seizure.</li>
+  </ul>
+</div>
+
+<p>
+  For more detail and a full list of considerations, see these
+  <a href="https://www.w3.org/WAI/intro/people-use-web/principles">accessibility principles</a> on <a href="https://www.w3.org/">W3C</a>’s <a href="https://www.w3.org/WAI/">Web Accessibility Initiative</a>. Also take a look at these <a href="https://www.w3.org/WAI/eval/preliminary.html">preliminary checks</a> to see if your website meets some basic standards.
+</p>
+
+<p>
+  Besides opening up your application to more users, there is another benefit to making your website accessible, search engine optimization. With text alternatives and microdata, search engines can find content more easily and accurately. Microdata are simply descriptions of content on the page and you can implement them using attributes like this example from <a href="https://schema.org/docs/gs.html">schema.org</a>:
+</p>
+
+<script src="https://gist.github.com/bethsecor/ea78703d46b552e7d557.js"></script>
+
+<p>
+   <code>itemscope</code> defines the object, <code>itemtype</code> describes that type of object, and <code>itemprop</code> defines the property that the spanned content describes.
+</p>
+
+<p>
+  Government websites are required to adhere to the web accessibility principles, so I headed over to the <a href="http://www.cdc.gov/">CDC’s website</a> to have a look. The site overall is easy to read with good contrast, there were text alternatives to the images, microdata, and I could navigate the site entirely without using my mouse (start with the tab key and options will appear at the top):
+</p>
+
+<img src="/images/cdc.png" alt="CDC Website" id="cdc"/>
+
+
+<!-- <div class="back-posts"> -->
+<a class="back-posts" href="/">...back to posts</a>
+<!-- <div/> -->
+
+      </div>
+    </body>
+    <footer>
+      <ul>
+        <li>
+          <a href="https://twitter.com/bethsecor"><img src="/images/Twitter-logo-watermark.png" height=40></a>
+        </li>
+      </ul>
+    </footer>
+</html>
+

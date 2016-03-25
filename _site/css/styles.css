@@ -58,6 +58,12 @@ ol {
   font-family: 'Arvo', serif;
 }
 
+#web-accessibility-principles ul {
+  list-style-type: disc;
+  margin: 2em;
+  font-family: 'Arvo', serif;
+}
+
 li {
   padding-bottom: 3px;
   text-align: left;
@@ -183,6 +189,11 @@ code {
   border-style: solid;
   border-width: 2px;
   color: #32cdcd;
+}
+
+#cdc {
+  max-width:100%;
+  max-height:100%;
 }
 
 /* Footer */

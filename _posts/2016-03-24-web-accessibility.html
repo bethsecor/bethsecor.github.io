@@ -1,0 +1,44 @@
+---
+title: Web Accessibility
+layout: post
+date: 2016-03-24
+---
+ <p>
+   Since Turing is such an intensive program, we often don't have the time to scrutinize every design choice for the applications we build. HTML and CSS are mostly self-taught, so it’s no surprise that most of us do not consider web accessibility when frantically trying to get a fully functional application running in three days.
+ </p>
+
+ <p>
+   Making sure your website is accessible means making it available and usable by everyone, including people of all different abilities. Would a person who can only use the keyboard be able to navigate your website? Is content available in different formats so that, for instance, a person who is hard of hearing can access a transcript or subtitles for audio content? There are many other considerations:
+ </p>
+
+<div id="web-accessibility-principles">
+  <ul>
+    <li>Text alternatives for non-text content such as images.</li>
+    <li>Captions and alternatives for all audio and video content.</li>
+    <li>Sufficient contrast between text and background.</li>
+    <li>Site can be navigated entirely with a keyboard.</li>
+    <li>Make sure there is enough time to read all content.</li>
+    <li>Do not use content that will trigger a seizure.</li>
+  </ul>
+</div>
+
+<p>
+  For more detail and a full list of considerations, see these
+  <a href="https://www.w3.org/WAI/intro/people-use-web/principles">accessibility principles</a> on <a href="https://www.w3.org/">W3C</a>’s <a href="https://www.w3.org/WAI/">Web Accessibility Initiative</a>. Also take a look at these <a href="https://www.w3.org/WAI/eval/preliminary.html">preliminary checks</a> to see if your website meets some basic standards.
+</p>
+
+<p>
+  Besides opening up your application to more users, there is another benefit to making your website accessible, search engine optimization. With text alternatives and microdata, search engines can find content more easily and accurately. Microdata are simply descriptions of content on the page and you can implement them using attributes like this example from <a href="https://schema.org/docs/gs.html">schema.org</a>:
+</p>
+
+<script src="https://gist.github.com/bethsecor/ea78703d46b552e7d557.js"></script>
+
+<p>
+   <code>itemscope</code> defines the object, <code>itemtype</code> describes that type of object, and <code>itemprop</code> defines the property that the spanned content describes.
+</p>
+
+<p>
+  Government websites are required to adhere to the web accessibility principles, so I headed over to the <a href="http://www.cdc.gov/">CDC’s website</a> to have a look. The site overall is easy to read with good contrast, there were text alternatives to the images, microdata, and I could navigate the site entirely without using my mouse (start with the tab key and options will appear at the top):
+</p>
+
+<img src="/images/cdc.png" alt="CDC Website" id="cdc"/>
