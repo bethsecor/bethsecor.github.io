@@ -1,2 +1,4 @@
 title: Beth Secor
 email: elizabeth.a.secor@gmail.com
+gems:
+  - jekyll-feed
