@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<generator uri="http://jekyllrb.com" version="2.4.0">Jekyll</generator>
+<link href="/feed.xml" rel="self" type="application/atom+xml" />
+<link href="/" rel="alternate" type="text/html" />
+<updated>2016-04-12T20:28:38-06:00</updated>
+<id>/</id>
+<entry>
+<title>VCR versus Webmock</title>
+<link href="/2016/04/12/vcr-versus-webmock.html" rel="alternate" type="text/html" title="VCR versus Webmock" />
+<published>2016-04-12T00:00:00-06:00</published>
+<updated>2016-04-12T00:00:00-06:00</updated>
+<id>/2016/04/12/vcr-versus-webmock</id>
+<content type="html" xml:base="/2016/04/12/vcr-versus-webmock.html">&lt;p&gt;
+  When we first learned how to test external APIs in Rails, we used &lt;a href=&quot;https://github.com/vcr/vcr&quot;&gt;VCR cassettes&lt;/a&gt;. To create a cassette, all we needed to do in our test was wrap the API call with &lt;code&gt;VCR.use_cassette&lt;/code&gt;. It seemed simple enough, I used them when consuming the Instagram API. It was nice to have a snapshot of the response so easily made and ready to go. One of our instructors warned us to clear our cassettes occasionally though, because our tests would pass even when the endpoint changed its response, causing problems in our applications. I didn&#39;t really have any issues with VCRs until I started working on my personal project, an air quality alerting app, that used a somewhat temperamental API from Breezometer. Occasionally, my tests would fail and I would get the dreaded error about VCR not sure how to handle the HTTP request. Surely there must be another way to test a call to an external API?
+&lt;/p&gt;
+
+&lt;p&gt;
+  This week at Turing we began a project where we get to work on an application already in production called  &lt;a href=&quot;http://lookingforme.herokuapp.com/&quot;&gt;Looking For Me&lt;/a&gt;, a site for Turing grads to find development related jobs. It&#39;s exciting because we get a taste of what it&#39;s like to work on a development team, and inherit code that was written mostly by Turing alumni. The app pulls in jobs already from two external services, and they are tested using &lt;a href=&quot;https://github.com/bblimke/webmock&quot;&gt;Webmock&lt;/a&gt; and  &lt;a href=&quot;https://github.com/sinatra/sinatra&quot;&gt;Sinatra&lt;/a&gt;. This took a little getting used to since I had always used VCR, but I can definitely now see the advantages.
+&lt;/p&gt;
+
+&lt;p&gt;
+  There&#39;s more setup involved at first of course. You use Webmock to route requests from tests, and Sintra and fixtures to handle the response. Below, the &lt;code&gt;FakeSuperCool&lt;/code&gt; class is the Sinatra application that provides the fake response to the stubbed request to any url that contains &lt;code&gt;api.supercool.com&lt;/code&gt;.
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/f36b1e6f36738c64341de63294e89085.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+  You never need to hit the external service ever (like you do the first time you record a VCR cassette). It&#39;s also easier to reproduce errors for testing. This &lt;a href=&quot;https://quickleft.com/blog/decreasing-vcr-dependency-webmock/&quot;&gt;blog post&lt;/a&gt; from QuickLeft also describes the advantages of depending less on VCR and using Webmock, a faster running test suite! You will still need to keep an eye on the external API you&#39;re using for any changes, and update your tests. Check out this &lt;a href=&quot;https://robots.thoughtbot.com/how-to-stub-external-services-in-tests&quot;&gt;article&lt;/a&gt; from thoughtbot for more information on how to setup Webmock and Sinatra.
+&lt;/p&gt;
+</content>
+<summary>  When we first learned how to test external APIs in Rails, we used VCR cassettes. To create a cassette, all we needed to do in our test was wrap the API call with VCR.use_cassette. It seemed simple enough, I used them when consuming the Instagram API. It was nice to have a snapshot of the response so easily made and ready to go. One of our instructors warned us to clear our cassettes occasionally though, because our tests would pass even when the endpoint changed its response, causing problems in our applications. I didn&#39;t really have any issues with VCRs until I started working on my personal project, an air quality alerting app, that used a somewhat temperamental API from Breezometer. Occasionally, my tests would fail and I would get the dreaded error about VCR not sure how to handle the HTTP request. Surely there must be another way to test a call to an external API?</summary>
+</entry>
+<entry>
+<title>Web Accessibility</title>
+<link href="/2016/03/24/web-accessibility.html" rel="alternate" type="text/html" title="Web Accessibility" />
+<published>2016-03-24T00:00:00-06:00</published>
+<updated>2016-03-24T00:00:00-06:00</updated>
+<id>/2016/03/24/web-accessibility</id>
+<content type="html" xml:base="/2016/03/24/web-accessibility.html">&lt;p&gt;
+   Since Turing is such an intensive program, we often don&#39;t have the time to scrutinize every design choice for the applications we build. HTML and CSS are mostly self-taught, so it’s no surprise that most of us do not consider web accessibility when frantically trying to get a fully functional application running in three days.
+ &lt;/p&gt;
+
+&lt;p&gt;
+   Making sure your website is accessible means making it available and usable by everyone, including people of all different abilities. Would a person who can only use the keyboard be able to navigate your website? Is content available in different formats so that, for instance, a person who is hard of hearing can access a transcript or subtitles for audio content? There are many other considerations:
+ &lt;/p&gt;
+
+&lt;div id=&quot;web-accessibility-principles&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Text alternatives for non-text content such as images.&lt;/li&gt;
+    &lt;li&gt;Captions and alternatives for all audio and video content.&lt;/li&gt;
+    &lt;li&gt;Sufficient contrast between text and background.&lt;/li&gt;
+    &lt;li&gt;Site can be navigated entirely with a keyboard.&lt;/li&gt;
+    &lt;li&gt;Make sure there is enough time to read all content.&lt;/li&gt;
+    &lt;li&gt;Do not use content that will trigger a seizure.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+  For more detail and a full list of considerations, see these
+  &lt;a href=&quot;https://www.w3.org/WAI/intro/people-use-web/principles&quot;&gt;accessibility principles&lt;/a&gt; on &lt;a href=&quot;https://www.w3.org/&quot;&gt;W3C&lt;/a&gt;’s &lt;a href=&quot;https://www.w3.org/WAI/&quot;&gt;Web Accessibility Initiative&lt;/a&gt;. Also take a look at these &lt;a href=&quot;https://www.w3.org/WAI/eval/preliminary.html&quot;&gt;preliminary checks&lt;/a&gt; to see if your website meets some basic standards.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Besides opening up your application to more users, there is another benefit to making your website accessible, search engine optimization. With text alternatives and microdata, search engines can find content more easily and accurately. Microdata are simply descriptions of content on the page and you can implement them using attributes like this example from &lt;a href=&quot;https://schema.org/docs/gs.html&quot;&gt;schema.org&lt;/a&gt;:
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/ea78703d46b552e7d557.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+   &lt;code&gt;itemscope&lt;/code&gt; defines the object, &lt;code&gt;itemtype&lt;/code&gt; describes that type of object, and &lt;code&gt;itemprop&lt;/code&gt; defines the property that the spanned content describes.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Government websites are required to adhere to the web accessibility principles, so I headed over to the &lt;a href=&quot;http://www.cdc.gov/&quot;&gt;CDC’s website&lt;/a&gt; to have a look. The site overall is easy to read with good contrast, there were text alternatives to the images, microdata, and I could navigate the site entirely without using my mouse (start with the tab key and options will appear at the top):
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cdc.png&quot; alt=&quot;CDC Website&quot; id=&quot;cdc&quot; /&gt;&lt;/p&gt;
+</content>
+<summary>   Since Turing is such an intensive program, we often don&#39;t have the time to scrutinize every design choice for the applications we build. HTML and CSS are mostly self-taught, so it’s no surprise that most of us do not consider web accessibility when frantically trying to get a fully functional application running in three days. </summary>
+</entry>
+<entry>
+<title>The Artful Dodger: Consuming the Instagram API</title>
+<link href="/2016/02/21/the-artful-dodger-instagram-api.html" rel="alternate" type="text/html" title="The Artful Dodger: Consuming the Instagram API
+" />
+<published>2016-02-21T00:00:00-07:00</published>
+<updated>2016-02-21T00:00:00-07:00</updated>
+<id>/2016/02/21/the-artful-dodger-instagram-api</id>
+<content type="html" xml:base="/2016/02/21/the-artful-dodger-instagram-api.html">&lt;p&gt;
+  This last week at Turing we were assigned &lt;a href=&quot;https://github.com/turingschool/lesson_plans/blob/master/ruby_03-professional_rails_applications/apicurious.md&quot;&gt;APIcurious&lt;/a&gt;, which is a three day project to consume an API of our choice. Most people choose Twitter, Github, or Instagram. I love Instagram so I jumped in immediately (check out my artwork &lt;a href=&quot;https://www.instagram.com/artofmoxie/&quot;&gt;@artofmoxie&lt;/a&gt;). Little did I know what a massive ordeal it would be to do anything interesting with the &lt;a href=&quot;https://www.instagram.com/developer/&quot;&gt;Instagram API&lt;/a&gt; in just a few days.
+&lt;/p&gt;
+
+&lt;p&gt;
+  When you get your developer key from Instagram, you are instantly &lt;a href=&quot;https://www.instagram.com/developer/sandbox/&quot;&gt;sandboxed&lt;/a&gt;. This sandbox limits you to what you can see when you request followers, likes, and comments. I could only see my own comments, which is because I had no other developer accounts in my sandbox. If you&#39;re going to test out the Instagram API, it&#39;s crucial that you add other accounts to your sandbox and make sure to like, comment, and troll each other&#39;s accounts so that you will have data to work with. I ended up making a &lt;a href=&quot;https://www.instagram.com/miss.capybara/&quot;&gt;fake test account for a capybara&lt;/a&gt; and adding the other students also working on the Instagram API, so it worked out in the end. You can only have 10 users in your sandbox, and can only see 20 recent media posts from each of those users. The upside of this is that you are unlikely to go over your API call rate limit when testing.
+&lt;/p&gt;
+
+&lt;p&gt;
+  The other interesting wrench in working with the Instagram API are &lt;a href=&quot;https://www.instagram.com/developer/authorization/&quot;&gt;scopes&lt;/a&gt;. When you are sandboxed, you at first only have access to the basic scope. This means you can only request data on your own account&#39;s photos. Not fun, right? Without the other scopes, you cannot request followers or public content, and you cannot post comments or likes. Don&#39;t be fooled by the documentation, Instagram makes it seem like you can&#39;t use these extended permissions without first submitting your app for review. Since we only had three days for the project, there was no way I would get out of the sandbox before it was due, and also, I was technically violating the terms of use because the goal of project was to clone Instagram, which is exactly what they don&#39;t want you to do. If you work at Instagram, calm yourself, I didn&#39;t push this project to production and have no intention of creating a competing product, this was purely for educational purposes.
+&lt;/p&gt;
+
+&lt;p&gt;
+  We were two days into the project thinking that we were stuck. I then discovered an &lt;a href=&quot;http://ka.lpe.sh/2015/12/24/this-request-requires-scope-public_content-but-this-access-token-is-not-authorized-with-this-scope/&quot;&gt;article&lt;/a&gt; about how you could ask your users to authorize extended permissions, even in the sandbox. I then discovered I could specify the scopes I needed in my OmniAuth configuration in Rails:
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/20375432cbecb10de516.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+  This was the breakthrough I needed! Oddly enough, another student working on Instagram did not need to explicitly specify this in her configuration, she already had access to these scopes. We are still not sure exactly why.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Before I discovered the scopes issue, I decided to integrate another API so I wouldn&#39;t show up on Friday with a lame project. I used the &lt;a href=&quot;https://developers.artsy.net/&quot;&gt;Artsy API&lt;/a&gt; which has a bunch of data on artists. I implemented a simple search feature on my app, but if I had more time, would have loved to integrate further with Instagram.
+&lt;/p&gt;
+
+&lt;p&gt;
+  I wrote this blogpost as a warning to future Module 3 students, if you want to consume the Instagram API for APIcurious, follow the above steps. Feel free to invite me to your sandbox too, but slack me or &lt;a href=&quot;https://twitter.com/bethsecor&quot;&gt;tweet me&lt;/a&gt; when you do, because despite what Instagram says, they do not email you when you&#39;ve been invited to a sandbox.
+&lt;/p&gt;
+
+&lt;p&gt;
+  See all the code for this app I made &lt;a href=&quot;https://github.com/bethsecor/apicurious-artsy&quot;&gt;here&lt;/a&gt;.
+&lt;/p&gt;
+</content>
+<summary>  This last week at Turing we were assigned APIcurious, which is a three day project to consume an API of our choice. Most people choose Twitter, Github, or Instagram. I love Instagram so I jumped in immediately (check out my artwork @artofmoxie). Little did I know what a massive ordeal it would be to do anything interesting with the Instagram API in just a few days.</summary>
+</entry>
+<entry>
+<title>Applying statistics to benchmarking</title>
+<link href="/2016/01/20/applying-statistics-to-benchmarking.html" rel="alternate" type="text/html" title="Applying statistics to benchmarking" />
+<published>2016-01-20T00:00:00-07:00</published>
+<updated>2016-01-20T00:00:00-07:00</updated>
+<id>/2016/01/20/applying-statistics-to-benchmarking</id>
+<content type="html" xml:base="/2016/01/20/applying-statistics-to-benchmarking.html">&lt;p&gt;
+  Benchmarking in ruby is very easy with the &lt;code&gt;Benchmark&lt;/code&gt; module. The method &lt;code&gt;.bmbm&lt;/code&gt; will run a rehearsal to force any initialization that needs to happen, and also forces it to run garbage collection. Then it runs the benchmark again.
+&lt;/p&gt;
+
+&lt;p&gt;
+  This would be fine if you needed to run a quick benchmark, but can you say definitively that one method is faster than the other? Not quite. That&#39;s where statistics come in. If you want to know that on average, there is a statistically significant difference in runtime of one method over the other, you&#39;ll need to run this benchmark more than twice, and then use a statistical test to determine if that difference is real, or just by chance.
+&lt;/p&gt;
+
+&lt;p&gt;
+  You&#39;ll need to take a large enough sample of runtimes, at least than 10 outer iterations will usually do the trick. Make sure you also have a pretty large number of inner iterations as well if the methods you are comparing are really fast for small jobs.
+&lt;/p&gt;
+
+&lt;p&gt;
+  If you&#39;re wondering how you&#39;ll run a statistical test, you&#39;re in luck! Ruby has a cool gem called &lt;a href=&quot;https://rubygems.org/gems/better-benchmark/versions/0.8.7&quot;&gt;&lt;code&gt;better-benchmark&lt;/code&gt;&lt;/a&gt; that pulls in &lt;a href=&quot;https://www.r-project.org/&quot;&gt;&lt;code&gt;R&lt;/code&gt;&lt;/a&gt;, which is a statistical programming language. R is open source and very powerful, I prefer it over other statistical programming languages like SAS and Stata. You don&#39;t need to know how to program in R to use this gem, but you will need you install R first on your computer before installing the gem:
+&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Download R: &lt;a href=&quot;https://www.r-project.org/&quot;&gt;https://www.r-project.org/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Set environment variable in your terminal: &lt;br /&gt;&lt;code&gt;export R_HOME=&quot;/Library/Frameworks/R.framework/Resources&quot;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Then install the gem: &lt;br /&gt;&lt;code&gt;gem install better-benchmark -- --with-R-dir=$R_HOME&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;
+  The statistical test that the &lt;code&gt;better-benchmark&lt;/code&gt; gem uses is a &lt;a href=&quot;https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test&quot;&gt;Wilcoxon signed-rank test&lt;/a&gt;, which is good because it does not assume that your data follows a particular distribution and is robust against outliers. It is similar to a t-test, but uses the ranks of your runtimes, rather than the actual runtimes.
+&lt;/p&gt;
+
+&lt;p&gt;
+  The gem requires that to achieve statistical significance, the p-value must be below the significance level of 0.01. What does this mean? A small p-value (less than the significance level) would mean that the probability that we see a difference in runtimes between the two methods from our sample by mere chance is low. A large p-value would mean that the probability that we see a difference in the two methods from our sample by mere chance is high, meaning that there is a good chance these two methods are not different from each other.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Here is an example of how to run it:
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/f792ce198e69d277781f.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+  In the above example, I&#39;m specifying 30 outer iterations and 500,000 inner iterations to compare &lt;code&gt;shuffle&lt;/code&gt; and &lt;code&gt;shuffle!&lt;/code&gt;. It would probably be even better to do 1,000,000 inner iterations, but that would take a while.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Side note: I decided to look at the distributions of differences in runtimes by specifiying different outer iterations to see if that would smooth out the distribution, but that didn&#39;t seem to matter as much:
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img id=&quot;benchmark-dist&quot; alt=&quot;benchmark distributions&quot; src=&quot;/images/shuffle.vs.shufflebang(500000).png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;
+  If you are afraid of statistics and don&#39;t want to remember how to interpret the p-value, the cool thing about this gem is that it will tell you if you have statistical significance or not:
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/d499b27f1b3636880bb2.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+  Bottom line: statistics is cool, and should always be used when benchmarking!
+&lt;/p&gt;
+</content>
+<summary>  Benchmarking in ruby is very easy with the Benchmark module. The method .bmbm will run a rehearsal to force any initialization that needs to happen, and also forces it to run garbage collection. Then it runs the benchmark again.</summary>
+</entry>
+<entry>
+<title>Creating a table with multiple associations</title>
+<link href="/2016/01/18/table-with-mutiple-associations.html" rel="alternate" type="text/html" title="Creating a table with multiple associations" />
+<published>2016-01-18T00:00:00-07:00</published>
+<updated>2016-01-18T00:00:00-07:00</updated>
+<id>/2016/01/18/table-with-mutiple-associations</id>
+<content type="html" xml:base="/2016/01/18/table-with-mutiple-associations.html">&lt;p&gt;&lt;img id=&quot;fight&quot; alt=&quot;Fight Schema&quot; src=&quot;/images/Fight_schema.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;
+  In true Turing fashion, we were assigned a mini-Rails project with three days to complete it. My pair &lt;a href=&quot;https://github.com/afg419&quot;&gt;Aaron Greenspan&lt;/a&gt; and I decided we would create an app where users were Dojo leaders and they could log in to keep track of their combatants. Admins would be able to set up fights between combatants and users would be able to see a newsfeed of their victories and defeats. The dojo leader would initialize their combatants with certain skills, D&amp;amp;D style.
+&lt;/p&gt;
+
+&lt;p&gt;
+  We needed a way to store the results of the fights, and after some deliberation, we chose to set up a fights table that would have multiple associations to the same model. That way, for each fight, we could store the ids of the winning combatant and the losing combatant in one row, instead of having two records for one fight. You can see the schema for this design above.
+&lt;/p&gt;
+
+&lt;p&gt;
+  ActiveRecord has a way to implement this, and thanks to this
+  &amp;lt;a href=http://www.spacevatican.org/2008/5/6/creating-multiple-associations-with-the-same-table/&quot;&quot;&amp;gt;excellent blog post and this &lt;a href=&quot;http://stackoverflow.com/questions/14867981/how-do-i-add-migration-with-multiple-references-to-the-same-model-in-one-table&quot;&gt;StackOverflow post&lt;/a&gt; we got it set up in our models like this:
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/b7bea2d6fb2770c3388a.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+  Normally ActiveRecord assumes the &lt;code&gt;class_name&lt;/code&gt;, but you can specify it and the &lt;code&gt;foreign_key&lt;/code&gt;, and then name your association whatever you want. Here in the combatants model we’ve name the association &lt;code&gt;&quot;winning_fights&quot;&lt;/code&gt;, specified the &lt;code&gt;class_name: &quot;Fight&quot;&lt;/code&gt; and the &lt;code&gt;foreign_key: &quot;winning_combatant_id&quot;&lt;/code&gt;. Notice in the &lt;code&gt;Fight&lt;/code&gt; model that association names are the same as the foreign key that connects them.
+&lt;/p&gt;
+
+&lt;p&gt;
+  For our newsfeed, this association set-up makes it very easy to list the victories and defeats of a particular dojo in our view:
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/090aae5af812c2ea08b3.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+  You can see our whole project &lt;a href=&quot;https://github.com/afg419/fantasy_fighters&quot;&gt;here&lt;/a&gt;. Remember we only had three days...
+&lt;/p&gt;
+</content>
+<summary>  In true Turing fashion, we were assigned a mini-Rails project with three days to complete it. My pair Aaron Greenspan and I decided we would create an app where users were Dojo leaders and they could log in to keep track of their combatants. Admins would be able to set up fights between combatants and users would be able to see a newsfeed of their victories and defeats. The dojo leader would initialize their combatants with certain skills, D&amp;amp;D style.</summary>
+</entry>
+<entry>
+<title>A big thank you to Girl Develop It</title>
+<link href="/2015/11/25/thank-you-girl-develop-it.html" rel="alternate" type="text/html" title="A big thank you to Girl Develop It" />
+<published>2015-11-25T00:00:00-07:00</published>
+<updated>2015-11-25T00:00:00-07:00</updated>
+<id>/2015/11/25/thank-you-girl-develop-it</id>
+<content type="html" xml:base="/2015/11/25/thank-you-girl-develop-it.html">&lt;p&gt;&lt;img id=&quot;GDI&quot; alt=&quot;Girl Develop It&quot; src=&quot;/images/gdi_logo_square.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt; About a year ago I started taking classes through Girl Develop It (GDI). It’s an organization dedicated to teaching women web development, to balance out the gender gap in the tech industry. If it weren’t for GDI, I probably would not have discovered Turing. Many of the instructors were from Turing, and I learned so much from them.&lt;/p&gt;
+&lt;p&gt; This week we had to build a blog on Github using Jekyll. I was not concerned at all because of the previous training I had from GDI. I focused on making a clean design, and added several details that were not required. I added a favicon because I learned from building a web server a few weeks ago that a browser will always make a request for one. Also, I spent the better part of the afternoon today making my blog responsive, since that is arguably the most important feature a website should have these days.&lt;/p&gt;
+</content>
+<summary> About a year ago I started taking classes through Girl Develop It (GDI). It’s an organization dedicated to teaching women web development, to balance out the gender gap in the tech industry. If it weren’t for GDI, I probably would not have discovered Turing. Many of the instructors were from Turing, and I learned so much from them. This week we had to build a blog on Github using Jekyll. I was not concerned at all because of the previous training I had from GDI. I focused on making a clean design, and added several details that were not required. I added a favicon because I learned from building a web server a few weeks ago that a browser will always make a request for one. Also, I spent the better part of the afternoon today making my blog responsive, since that is arguably the most important feature a website should have these days.</summary>
+</entry>
+<entry>
+<title>Lessons Learned from Module One</title>
+<link href="/2015/11/23/module-one-experience.html" rel="alternate" type="text/html" title="Lessons Learned from Module One" />
+<published>2015-11-23T00:00:00-07:00</published>
+<updated>2015-11-23T00:00:00-07:00</updated>
+<id>/2015/11/23/module-one-experience</id>
+<content type="html" xml:base="/2015/11/23/module-one-experience.html">&lt;p&gt; Last week I finished Module 1 at Turing. It was challenging and stressful, but overall a lot of fun. I learned so much in six weeks; I did not think it was possible to learn that much in such a short amount of time. I love my cohort, everyone is so excited to learn and help each other out.&lt;/p&gt;
+
+&lt;p&gt;On Saturday I met one of the new members of the next cohort. She asked for any advice I had for her to prepare. I told her to cram as much studying in this week as possible, because the more you know beforehand the better. Her question made me reflect more on what advice I would give to other new students, so here it is:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Breathe, just breathe. There will be so much thrown at you on a daily basis, there’s nothing you can do to prepare yourself for the onslaught. You will be fine. It will seem like you can’t get the project done in three days, but then you will find yourself finishing the last iteration on Wednesday night.&lt;/li&gt;
+  &lt;li&gt;Spend at least two hours a week studying something that’s not homework or project related. I wish I had done this, but instead I focused all my time on projects. Attend some extracurricular activities. Do it!&lt;/li&gt;
+  &lt;li&gt;Pairing is not scary or annoying, and it’s so much fun as long as you communicate well. I was scared to start pairing because I was afraid I wouldn’t be as fast as my partner or that I wouldn’t be able to problem solve as well with someone constantly next to me watching me type. First, you need to “define the relationship” (DTR). Tell them what you need to work well, when you need to take a break, etc. You will be spending a lot of time with your pair on the last project, so make sure you constantly communicate with them. Pairing is great because when you reach that point where you hit a wall in problem solving, you aren’t alone. Two heads really are better than one.&lt;/li&gt;
+  &lt;li&gt;Don’t try to go to sleep 10 minutes after you’ve stopped coding. Go read a book, listen to a podcast, watch TV, get your mind of off your project and you will sleep so much better.&lt;/li&gt;
+  &lt;li&gt;Meet with a mentor at least once a week. Plan to meet with your mentor even if you think you are doing fine on a project. When you get to a point when you are stuck, then you won’t be scrambling to schedule a meeting with them at the last minute.&lt;/li&gt;
+  &lt;li&gt;Ask for help often and from anyone. Chances are, if something doesn’t look right in the project spec, other people are having issues with it too. Definitely ask students in later cohorts for help, they will always help you, that’s just the way Turing is.&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+<summary> Last week I finished Module 1 at Turing. It was challenging and stressful, but overall a lot of fun. I learned so much in six weeks; I did not think it was possible to learn that much in such a short amount of time. I love my cohort, everyone is so excited to learn and help each other out.</summary>
+</entry>
+</feed>

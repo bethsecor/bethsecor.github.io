@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Beth Secor</title>
+  <link href="/css/reset.css" rel="stylesheet" />
+  <link href="/css/styles.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <link rel="alternate" type="application/rss+xml" title="Beth Secor" href="http://bethsecor.github.io/feed.xml" />
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arvo|Sacramento|Josefin+Slab' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Slabo+13px|Josefin+Slab:600,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div id="header">
+    <h1>Beth Secor</h1>
+  </div>
+  <div id="navmenu">
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/">Posts</a></li>
+      <li><a href="https://github.com/bethsecor">Github</a></li>
+    </ul>
+  </div>
+  <div class="container">
+
+
+<h2 class="page-title">VCR versus Webmock</h2>
+<!-- <p>April 12, 2016</p> -->
+
+  <p class="date">April 12, 2016</p>
+
+
+<p>
+  When we first learned how to test external APIs in Rails, we used <a href="https://github.com/vcr/vcr">VCR cassettes</a>. To create a cassette, all we needed to do in our test was wrap the API call with <code>VCR.use_cassette</code>. It seemed simple enough, I used them when consuming the Instagram API. It was nice to have a snapshot of the response so easily made and ready to go. One of our instructors warned us to clear our cassettes occasionally though, because our tests would pass even when the endpoint changed its response, causing problems in our applications. I didn't really have any issues with VCRs until I started working on my personal project, an air quality alerting app, that used a somewhat temperamental API from Breezometer. Occasionally, my tests would fail and I would get the dreaded error about VCR not sure how to handle the HTTP request. Surely there must be another way to test a call to an external API?
+</p>
+
+<p>
+  This week at Turing we began a project where we get to work on an application already in production called  <a href="http://lookingforme.herokuapp.com/">Looking For Me</a>, a site for Turing grads to find development related jobs. It's exciting because we get a taste of what it's like to work on a development team, and inherit code that was written mostly by Turing alumni. The app pulls in jobs already from two external services, and they are tested using <a href="https://github.com/bblimke/webmock">Webmock</a> and  <a href="https://github.com/sinatra/sinatra">Sinatra</a>. This took a little getting used to since I had always used VCR, but I can definitely now see the advantages.
+</p>
+
+<p>
+  There's more setup involved at first of course. You use Webmock to route requests from tests, and Sintra and fixtures to handle the response. Below, the <code>FakeSuperCool</code> class is the Sinatra application that provides the fake response to the stubbed request to any url that contains <code>api.supercool.com</code>.
+</p>
+
+<script src="https://gist.github.com/bethsecor/f36b1e6f36738c64341de63294e89085.js"></script>
+
+<p>
+  You never need to hit the external service ever (like you do the first time you record a VCR cassette). It's also easier to reproduce errors for testing. This <a href="https://quickleft.com/blog/decreasing-vcr-dependency-webmock/">blog post</a> from QuickLeft also describes the advantages of depending less on VCR and using Webmock, a faster running test suite! You will still need to keep an eye on the external API you're using for any changes, and update your tests. Check out this <a href="https://robots.thoughtbot.com/how-to-stub-external-services-in-tests">article</a> from thoughtbot for more information on how to setup Webmock and Sinatra.
+</p>
+
+
+<!-- <div class="back-posts"> -->
+<a class="back-posts" href="/">...back to posts</a>
+<!-- <div/> -->
+
+      </div>
+    </body>
+    <footer>
+      <ul>
+        <li>
+          <a href="https://twitter.com/bethsecor"><img src="/images/Twitter-logo-watermark.png" height=40></a>
+        </li>
+      </ul>
+    </footer>
+</html>
+
