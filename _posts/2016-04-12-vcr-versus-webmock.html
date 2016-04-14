@@ -12,11 +12,25 @@ date: 2016-04-12
 </p>
 
 <p>
-  There's more setup involved at first of course. You use Webmock to route requests from tests, and Sintra and fixtures to handle the response. Below, the <code>FakeSuperCool</code> class is the Sinatra application that provides the fake response to the stubbed request to any url that contains <code>api.supercool.com</code>.
+  There's more setup involved at first of course. You use Webmock to route requests from tests, and Sintra and fixtures to handle the response. Below, the <code>FakeSuperCool</code> class is the Sinatra application that provides the fake response to the stubbed request to any url that contains <code>supercool.com</code>.
 </p>
 
 <script src="https://gist.github.com/bethsecor/f36b1e6f36738c64341de63294e89085.js"></script>
 
 <p>
+  Here is an example of the <code>FakeSuperCool</code> Sinatra application:
+</p>
+
+<script src="https://gist.github.com/bethsecor/4797039b6226ef368afe68617d9ee5e6.js"></script>
+
+<p>
+  Depending on certain parameters, a different fixture will be called for the response needed.
+</p>
+
+<p>
   You never need to hit the external service ever (like you do the first time you record a VCR cassette). It's also easier to reproduce errors for testing. This <a href="https://quickleft.com/blog/decreasing-vcr-dependency-webmock/">blog post</a> from QuickLeft also describes the advantages of depending less on VCR and using Webmock, a faster running test suite! You will still need to keep an eye on the external API you're using for any changes, and update your tests. Check out this <a href="https://robots.thoughtbot.com/how-to-stub-external-services-in-tests">article</a> from thoughtbot for more information on how to setup Webmock and Sinatra.
+</p>
+
+<p>
+  After getting used to Webmock, I still think that VCR has it's use. When solely relying on Webmock for this week's project, I made a slight error in the url when making a get request with Faraday that I didn't catch until I ran a rake task in development and it failed when trying to make the API call. (If you are wondering what the error was, I had put in & instead of a ? - I know, I know, silly). If I had used VCR for my first test, this error would have been caught immediately.
 </p>
