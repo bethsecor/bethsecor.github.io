@@ -3,8 +3,36 @@
 <generator uri="http://jekyllrb.com" version="2.4.0">Jekyll</generator>
 <link href="/feed.xml" rel="self" type="application/atom+xml" />
 <link href="/" rel="alternate" type="text/html" />
-<updated>2016-04-12T20:28:38-06:00</updated>
+<updated>2016-04-14T20:13:04-06:00</updated>
 <id>/</id>
+<entry>
+<title>SSL Server Tests</title>
+<link href="/2016/04/13/ssl-tests.html" rel="alternate" type="text/html" title="SSL Server Tests" />
+<published>2016-04-13T00:00:00-06:00</published>
+<updated>2016-04-13T00:00:00-06:00</updated>
+<id>/2016/04/13/ssl-tests</id>
+<content type="html" xml:base="/2016/04/13/ssl-tests.html">&lt;p&gt;
+  Back in module three at Turing when I started working on a personal project to build an &lt;a href=&quot;https://github.com/bethsecor/air-alert&quot;&gt;air quality alerting application&lt;/a&gt; in Rails. I began by pulling in the Breezometer API, and per their documentation made my calls using HTTPS. Unfortunately, I kept getting an SSL certificate error: &lt;code&gt;SSL_connect returned=1 errno=0 state=error: certificate verify failed&lt;/code&gt;. It turns out many of my peers were also having issues with SSL certificate problems when accessing other APIs for their projects. Most of them had resolved their errors by updating Ruby and RVM or updating the &lt;code&gt;openssl&lt;/code&gt; gem. One person updated their certificates by following the steps in this &lt;a href=&quot;http://railsapps.github.io/openssl-certificate-verify-failed.html&quot;&gt;article&lt;/a&gt;. I also discovered this packaged cron job called &lt;a href=&quot;https://github.com/raggi/openssl-osx-ca&quot;&gt;openssl-osx-ca&lt;/a&gt; that will keep certificates up to date in the OSX keychain.
+&lt;/p&gt;
+
+&lt;p&gt;
+  After six hours of reinstalling Ruby, Rails, RVM, and recklessly trying many different solutions on Stack Overflow, I decided to call the Breezometer API with regular old HTTP so I could actually make headway on my project.
+&lt;/p&gt;
+
+&lt;p&gt;
+  I had a meeting with my mentor the next day, and I told him of my woes. He showed me this &lt;a href=&quot;https://www.ssllabs.com/ssltest&quot;&gt;website from Qualys SSL Labs&lt;/a&gt; that runs metrics on a web server and gives it a letter grade based on many parameters like certificate chain completeness or what cryptographic algorthms they use, and tells you about any issues. It turns out that the Breezometer API has an incomplete certificate chain (see the complete report &lt;a href=&quot;https://www.ssllabs.com/ssltest/analyze.html?d=api.breezometer.com&amp;amp;s=173.194.202.121&quot;&gt;here&lt;/a&gt;, it got a grade B). I was relieved to find out that I wasn&#39;t doing something horribly wrong in my code, but it was actually the server that was giving me trouble. I wish I had known about this site earlier, so I made a mental note to test any APIs I was going to use first before writing any code.
+&lt;/p&gt;
+
+&lt;p&gt;
+  This week, I am working on a development team for an application called &lt;a href=&quot;https://github.com/LookingForMe/lookingfor&quot;&gt;Looking For Me&lt;/a&gt;, a site that pulls programming related jobs for Turing grads to peruse. I decided to work on a feature to add more jobs with the Authentic Jobs API. So, before writing any code, I ran the SSL server test for this API. The Authentic Jobs API got a &lt;a href=&quot;https://www.ssllabs.com/ssltest/analyze.html?d=authenticjobs.com&amp;amp;s=104.200.23.73&quot;&gt;grade B&lt;/a&gt; because they support weak Diffie-Hellman (DH) key exchange parameters which was one the first public key exchange algorithms published in the 1970s and are vulnerable to &lt;a href=&quot;https://weakdh.org/&quot;&gt;Logjam&lt;/a&gt; attacks.
+&lt;/p&gt;
+
+&lt;p&gt;
+  I always learn so much from the SSL server test reports, and I will continue getting a report before using any API.
+&lt;/p&gt;
+</content>
+<summary>  Back in module three at Turing when I started working on a personal project to build an air quality alerting application in Rails. I began by pulling in the Breezometer API, and per their documentation made my calls using HTTPS. Unfortunately, I kept getting an SSL certificate error: SSL_connect returned=1 errno=0 state=error: certificate verify failed. It turns out many of my peers were also having issues with SSL certificate problems when accessing other APIs for their projects. Most of them had resolved their errors by updating Ruby and RVM or updating the openssl gem. One person updated their certificates by following the steps in this article. I also discovered this packaged cron job called openssl-osx-ca that will keep certificates up to date in the OSX keychain.</summary>
+</entry>
 <entry>
 <title>VCR versus Webmock</title>
 <link href="/2016/04/12/vcr-versus-webmock.html" rel="alternate" type="text/html" title="VCR versus Webmock" />
@@ -20,13 +48,27 @@
 &lt;/p&gt;
 
 &lt;p&gt;
-  There&#39;s more setup involved at first of course. You use Webmock to route requests from tests, and Sintra and fixtures to handle the response. Below, the &lt;code&gt;FakeSuperCool&lt;/code&gt; class is the Sinatra application that provides the fake response to the stubbed request to any url that contains &lt;code&gt;api.supercool.com&lt;/code&gt;.
+  There&#39;s more setup involved at first of course. You use Webmock to route requests from tests, and Sintra and fixtures to handle the response. Below, the &lt;code&gt;FakeSuperCool&lt;/code&gt; class is the Sinatra application that provides the fake response to the stubbed request to any url that contains &lt;code&gt;supercool.com&lt;/code&gt;.
 &lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/bethsecor/f36b1e6f36738c64341de63294e89085.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;
+  Here is an example of the &lt;code&gt;FakeSuperCool&lt;/code&gt; Sinatra application:
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/4797039b6226ef368afe68617d9ee5e6.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+  Depending on certain parameters, a different fixture will be called for the response needed.
+&lt;/p&gt;
+
+&lt;p&gt;
   You never need to hit the external service ever (like you do the first time you record a VCR cassette). It&#39;s also easier to reproduce errors for testing. This &lt;a href=&quot;https://quickleft.com/blog/decreasing-vcr-dependency-webmock/&quot;&gt;blog post&lt;/a&gt; from QuickLeft also describes the advantages of depending less on VCR and using Webmock, a faster running test suite! You will still need to keep an eye on the external API you&#39;re using for any changes, and update your tests. Check out this &lt;a href=&quot;https://robots.thoughtbot.com/how-to-stub-external-services-in-tests&quot;&gt;article&lt;/a&gt; from thoughtbot for more information on how to setup Webmock and Sinatra.
+&lt;/p&gt;
+
+&lt;p&gt;
+  After getting used to Webmock, I still think that VCR is pretty useful. When solely relying on Webmock for this week&#39;s project, I made a slight error in the url when making a get request with Faraday that I didn&#39;t catch until I ran a rake task in development and it failed when trying to make the API call. (If you are wondering what the error was, I had put in &amp;amp; instead of a ? - I know, I know, silly). If I had used VCR for my first test, this error would have been caught immediately.
 &lt;/p&gt;
 </content>
 <summary>  When we first learned how to test external APIs in Rails, we used VCR cassettes. To create a cassette, all we needed to do in our test was wrap the API call with VCR.use_cassette. It seemed simple enough, I used them when consuming the Instagram API. It was nice to have a snapshot of the response so easily made and ready to go. One of our instructors warned us to clear our cassettes occasionally though, because our tests would pass even when the endpoint changed its response, causing problems in our applications. I didn&#39;t really have any issues with VCRs until I started working on my personal project, an air quality alerting app, that used a somewhat temperamental API from Breezometer. Occasionally, my tests would fail and I would get the dreaded error about VCR not sure how to handle the HTTP request. Surely there must be another way to test a call to an external API?</summary>
@@ -49,10 +91,10 @@
   &lt;ul&gt;
     &lt;li&gt;Text alternatives for non-text content such as images.&lt;/li&gt;
     &lt;li&gt;Captions and alternatives for all audio and video content.&lt;/li&gt;
-    &lt;li&gt;Sufficient contrast between text and background.&lt;/li&gt;
+    &lt;li&gt;Sufficient contrast between text and background (contrast ratio of at least 4.5:1).&lt;/li&gt;
     &lt;li&gt;Site can be navigated entirely with a keyboard.&lt;/li&gt;
-    &lt;li&gt;Make sure there is enough time to read all content.&lt;/li&gt;
-    &lt;li&gt;Do not use content that will trigger a seizure.&lt;/li&gt;
+    &lt;li&gt;Make sure there is enough time to read all content (allow user to pause content, or use these &lt;a href=&quot;https://www.w3.org/WAI/WCAG20/quickref/#time-limits&quot;&gt;other options&lt;/a&gt;).&lt;/li&gt;
+    &lt;li&gt;Do not use content that will trigger a seizure (flashing lights of 5-20 flashes per second - see this &lt;a href=&quot;http://www.epilepsy.com/learn/triggers-seizures/photosensitivity-and-seizures&quot;&gt;full list of triggers&lt;/a&gt;).&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/div&gt;
 

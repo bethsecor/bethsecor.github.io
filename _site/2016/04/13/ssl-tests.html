@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Beth Secor</title>
+  <link href="/css/reset.css" rel="stylesheet" />
+  <link href="/css/styles.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/images/favicon.ico">
+  <link rel="alternate" type="application/rss+xml" title="Beth Secor" href="http://bethsecor.github.io/feed.xml" />
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arvo|Sacramento|Josefin+Slab' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Slabo+13px|Josefin+Slab:600,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div id="header">
+    <h1>Beth Secor</h1>
+  </div>
+  <div id="navmenu">
+    <ul>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/">Posts</a></li>
+      <li><a href="https://github.com/bethsecor">Github</a></li>
+    </ul>
+  </div>
+  <div class="container">
+
+
+<h2 class="page-title">SSL Server Tests</h2>
+<!-- <p>April 13, 2016</p> -->
+
+  <p class="date">April 13, 2016</p>
+
+
+<p>
+  Back in module three at Turing when I started working on a personal project to build an <a href="https://github.com/bethsecor/air-alert">air quality alerting application</a> in Rails. I began by pulling in the Breezometer API, and per their documentation made my calls using HTTPS. Unfortunately, I kept getting an SSL certificate error: <code>SSL_connect returned=1 errno=0 state=error: certificate verify failed</code>. It turns out many of my peers were also having issues with SSL certificate problems when accessing other APIs for their projects. Most of them had resolved their errors by updating Ruby and RVM or updating the <code>openssl</code> gem. One person updated their certificates by following the steps in this <a href="http://railsapps.github.io/openssl-certificate-verify-failed.html">article</a>. I also discovered this packaged cron job called <a href="https://github.com/raggi/openssl-osx-ca">openssl-osx-ca</a> that will keep certificates up to date in the OSX keychain.
+</p>
+
+<p>
+  After six hours of reinstalling Ruby, Rails, RVM, and recklessly trying many different solutions on Stack Overflow, I decided to call the Breezometer API with regular old HTTP so I could actually make headway on my project.
+</p>
+
+<p>
+  I had a meeting with my mentor the next day, and I told him of my woes. He showed me this <a href="https://www.ssllabs.com/ssltest">website from Qualys SSL Labs</a> that runs metrics on a web server and gives it a letter grade based on many parameters like certificate chain completeness or what cryptographic algorthms they use, and tells you about any issues. It turns out that the Breezometer API has an incomplete certificate chain (see the complete report <a href="https://www.ssllabs.com/ssltest/analyze.html?d=api.breezometer.com&s=173.194.202.121">here</a>, it got a grade B). I was relieved to find out that I wasn't doing something horribly wrong in my code, but it was actually the server that was giving me trouble. I wish I had known about this site earlier, so I made a mental note to test any APIs I was going to use first before writing any code.
+</p>
+
+<p>
+  This week, I am working on a development team for an application called <a href="https://github.com/LookingForMe/lookingfor">Looking For Me</a>, a site that pulls programming related jobs for Turing grads to peruse. I decided to work on a feature to add more jobs with the Authentic Jobs API. So, before writing any code, I ran the SSL server test for this API. The Authentic Jobs API got a <a href="https://www.ssllabs.com/ssltest/analyze.html?d=authenticjobs.com&s=104.200.23.73">grade B</a> because they support weak Diffie-Hellman (DH) key exchange parameters which was one the first public key exchange algorithms published in the 1970s and are vulnerable to <a href="https://weakdh.org/">Logjam</a> attacks.
+</p>
+
+<p>
+  I always learn so much from the SSL server test reports, and I will continue getting a report before using any API.
+</p>
+
+
+<!-- <div class="back-posts"> -->
+<a class="back-posts" href="/">...back to posts</a>
+<!-- <div/> -->
+
+      </div>
+    </body>
+    <footer>
+      <ul>
+        <li>
+          <a href="https://twitter.com/bethsecor"><img src="/images/Twitter-logo-watermark.png" height=40></a>
+        </li>
+      </ul>
+    </footer>
+</html>
+
