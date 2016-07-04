@@ -3,8 +3,68 @@
 <generator uri="http://jekyllrb.com" version="2.4.0">Jekyll</generator>
 <link href="/feed.xml" rel="self" type="application/atom+xml" />
 <link href="/" rel="alternate" type="text/html" />
-<updated>2016-06-10T15:28:00-06:00</updated>
+<updated>2016-07-04T16:57:34-06:00</updated>
 <id>/</id>
+<entry>
+<title>Twitter Service in Rails from Scratch</title>
+<link href="/2016/07/04/twitter-service-ruby.html" rel="alternate" type="text/html" title="Twitter Service in Rails from Scratch" />
+<published>2016-07-04T00:00:00-06:00</published>
+<updated>2016-07-04T00:00:00-06:00</updated>
+<id>/2016/07/04/twitter-service-ruby</id>
+<content type="html" xml:base="/2016/07/04/twitter-service-ruby.html">&lt;p&gt;
+  Last week I received a code challenge: use whatever technologies you like, but use the Twitter API! I decided to use Rails, because well, I love working in Rails and am most comfortable with it. I&#39;ve used the Twitter API before in a past project, but used the &lt;code&gt;twitter&lt;/code&gt; gem. This time, I decided to challenge myself and show that I could read through the documentation and build a service that would authorize a request. I did, however, decide to use the &lt;code&gt;omniauth-twitter&lt;/code&gt; gem for OAuth, so that I could jump into accessing an endpoint with the user&#39;s token (this was a timed challenge).
+&lt;/p&gt;
+
+&lt;p&gt;
+  Since I could do anything with Twitter, I decided to make a fun little app where a user could login and see an exhibit of all of their friends&#39; banners. I needed to authorize the GET friends/list endpoint. The params weren&#39;t difficult for this request, but the Authorization header was definitely tricky.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Before coding anything in the service, I sat there and just read the &lt;a href=&quot;https://dev.twitter.com/oauth/overview/authorizing-requests&quot;&gt;documentation for authorizing a request&lt;/a&gt; a few times to wrap my head around it. Then, the way I like to code is to write the method names that I wish I had, and then go ahead and fill those in. To start, I needed to initialize the Twitter service with the current user (I needed to use their ID and token) and the connection to the Twitter API. The &lt;code&gt;friends&lt;/code&gt; method would return an array of all the user&#39;s friends&#39; info.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Since the Authorization header was going to involve a lot, I wanted that to be it&#39;s own method (&lt;code&gt;friend_header&lt;/code&gt;). It returns a hash of all the key-value pairs needed for the header, and creates the timestamp and the nonce. The timestamp is pretty self explanatory, and the nonce is just a jumble of random alphanumeric characters that can nicely be acheived by Ruby&#39;s &lt;code&gt;SecureRandom.hex&lt;/code&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+  For the &lt;code&gt;oauth_consumer_key&lt;/code&gt;, you&#39;ll notice it&#39;s getting that from an environment variable &lt;code&gt;TWITTER_ID&lt;/code&gt;. I&#39;m using the gem &lt;code&gt;figaro&lt;/code&gt; here to keep my keys secret.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Now for the signature piece! I needed to pass in the timestamp and the nonce because I didn&#39;t want to initiate new ones, that would have caused the request to fail. You can read the documentation for creating signatures &lt;a href=&quot;https://dev.twitter.com/oauth/overview/creating-signatures&quot;&gt;here&lt;/a&gt;. The signature uses HMAC-SHA1. SHA1 is the hash function, which produces a message digest, given a key and the original message. Luckily, Ruby has a module &lt;code&gt;OpenSSL::HMAC&lt;/code&gt; that will do all of this for us. Twitter refers to the key as the signing key, which is a string of the percent encoded secret application API key and the percent encoded user&#39;s secret key. An example of percent encoding: a dash &quot;-&quot; in a string becomes &quot;%2D&quot;. To achieve this in Ruby I used &lt;code&gt;CGI.escape&lt;/code&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+  The message, or base string, is a combination of the HTTP method, the percent encoded base URL, and the percent encoded value of all the parameters and authorization headers in alphabetical order (excluding the signature of course). I&#39;ll admit that &lt;code&gt;friends_base_string&lt;/code&gt; is not the cleanest code, and I should have had a more generalized method in which I pass in the parameters and headers and it sorts them alphabetically. At this point, I just wanted to make things work, so I moved on.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Okay! So now we have the base string and the signing key, we feed those into &lt;code&gt;OpenSSL::HMAC.digest&lt;/code&gt;, and we get a binary string. Twitter tells us we need to convert this to base64, so I used Ruby&#39;s &lt;code&gt;Base64.encode64&lt;/code&gt;. This usually leaves us with a newline at the end, so we chomp that off, and just to be safe, gsub any other newlines anywhere else. Now we take that base64 string and percent encode it, and it&#39;s ready to go to our Authorization header!
+&lt;/p&gt;
+
+&lt;p&gt;
+  The Authorization header needs to begin with &quot;OAuth&quot; followed by each key in quotes, then &quot;:&quot;, then the value in quotes, which is what &lt;code&gt;friend_header_string&lt;/code&gt; does.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Now, &lt;code&gt;friends&lt;/code&gt; has everything it needs, Faraday will return the response that needs to be parsed, so I have a little method for that that uses &lt;code&gt;JSON.parse&lt;/code&gt;. If the response was successful, it should have a key &lt;code&gt;:users&lt;/code&gt;, if not, just return an empty array. With more time, it would probably be better to handle errors differently, but this works for now.
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/c93198c1e84f27b9c25cfb998d831782.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+  I call this &lt;code&gt;TwitterService&lt;/code&gt; in a psuedo Rails model &lt;code&gt;Friend&lt;/code&gt; (no need to inherit from &lt;code&gt;ActiveRecord::Base&lt;/code&gt;). In &lt;code&gt;get_friends&lt;/code&gt; I turn each friend into an open struct ruby object so that it&#39;s cleaner to work with in the views. That way also, if I ever decide to store this info in the database, the view won&#39;t have to change as much.
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/bethsecor/9409293c6a60ae9a3808d0a234e11c8b.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;
+  For the full project code, &lt;a href=&quot;https://github.com/bethsecor/twitter-client-everlane&quot;&gt;check it out here&lt;/a&gt;.
+&lt;/p&gt;
+</content>
+<summary>  Last week I received a code challenge: use whatever technologies you like, but use the Twitter API! I decided to use Rails, because well, I love working in Rails and am most comfortable with it. I&#39;ve used the Twitter API before in a past project, but used the twitter gem. This time, I decided to challenge myself and show that I could read through the documentation and build a service that would authorize a request. I did, however, decide to use the omniauth-twitter gem for OAuth, so that I could jump into accessing an endpoint with the user&#39;s token (this was a timed challenge).</summary>
+</entry>
 <entry>
 <title>SSL Server Tests</title>
 <link href="/2016/04/13/ssl-tests.html" rel="alternate" type="text/html" title="SSL Server Tests" />
